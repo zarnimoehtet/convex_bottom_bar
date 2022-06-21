@@ -110,6 +110,10 @@ class ConvexAppBar extends StatefulWidget {
   /// Color of the AppBar.
   final Color? backgroundColor;
 
+  final Color? inActiveColor;
+
+  final Color? textColor;
+
   /// Draw the background with topLeft and topRight corner; Only work work with fixed style
   ///
   /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
@@ -195,6 +199,9 @@ class ConvexAppBar extends StatefulWidget {
     TabController? controller,
     Color? color,
     Color? activeColor,
+    Color? inactiveColor,
+    Color? textColor,
+    Color? badgeColor,
     Color? backgroundColor,
     Gradient? gradient,
     double? height,
@@ -207,14 +214,15 @@ class ConvexAppBar extends StatefulWidget {
     ChipBuilder? chipBuilder,
   }) : this.builder(
           key: key,
-          itemBuilder: supportedStyle(
-            style ?? TabStyle.reactCircle,
-            items: items,
-            color: color ?? Colors.white60,
-            activeColor: activeColor ?? Colors.white,
-            backgroundColor: backgroundColor ?? Colors.blue,
-            curve: curve ?? Curves.easeInOut,
-          ),
+          itemBuilder: supportedStyle(style ?? TabStyle.reactCircle,
+              items: items,
+              color: color ?? Colors.white60,
+              activeColor: activeColor ?? Colors.white,
+              backgroundColor: backgroundColor ?? Colors.blue,
+              curve: curve ?? Curves.easeInOut,
+              textColor: textColor!,
+              badgeColor: badgeColor!,
+              inActiveIconColor: inactiveColor!),
           onTap: onTap,
           onTapNotify: onTabNotify,
           controller: controller,
@@ -257,6 +265,8 @@ class ConvexAppBar extends StatefulWidget {
     this.onTapNotify,
     this.controller,
     this.backgroundColor,
+    this.inActiveColor,
+    this.textColor,
     this.gradient,
     this.height,
     this.curveSize,

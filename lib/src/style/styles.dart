@@ -35,6 +35,9 @@ DelegateBuilder supportedStyle(
   required Color activeColor,
   required Color backgroundColor,
   required Curve curve,
+  required Color inActiveIconColor,
+  required Color textColor,
+  required Color badgeColor,
 }) {
   assert(items.isNotEmpty, 'items should not be empty');
   assert(
@@ -71,12 +74,14 @@ DelegateBuilder supportedStyle(
       break;
     case TabStyle.reactCircle:
       builder = ReactCircleTabStyle(
-        items: items,
-        color: color,
-        activeColor: activeColor,
-        backgroundColor: backgroundColor,
-        curve: curve,
-      );
+          items: items,
+          color: color,
+          activeColor: activeColor,
+          backgroundColor: backgroundColor,
+          curve: curve,
+          textColor: textColor,
+          badgeColor: badgeColor,
+          activeIconColor: inActiveIconColor);
       break;
     case TabStyle.textIn:
       assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
@@ -109,12 +114,14 @@ DelegateBuilder supportedStyle(
       break;
     default:
       builder = ReactCircleTabStyle(
-        items: items,
-        color: color,
-        activeColor: activeColor,
-        backgroundColor: backgroundColor,
-        curve: curve,
-      );
+          items: items,
+          color: color,
+          activeColor: activeColor,
+          backgroundColor: backgroundColor,
+          curve: curve,
+          textColor: textColor,
+          activeIconColor: inActiveIconColor,
+          badgeColor: badgeColor);
       break;
   }
   return builder;

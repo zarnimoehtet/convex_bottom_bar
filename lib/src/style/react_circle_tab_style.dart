@@ -22,6 +22,8 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
+import 'package:badges/badges.dart';
+
 /// Convex shape is moved after selection.
 class ReactCircleTabStyle extends InnerBuilder {
   /// Color used as background of appbar and circle icon.
@@ -34,51 +36,87 @@ class ReactCircleTabStyle extends InnerBuilder {
   ReactCircleTabStyle({
     required List<TabItem> items,
     required Color activeColor,
+    required Color activeIconColor,
+    required Color badgeColor,
     required Color color,
+    required Color textColor,
     required this.backgroundColor,
     required this.curve,
-  }) : super(items: items, activeColor: activeColor, color: color);
+  }) : super(
+            items: items,
+            activeColor: activeColor,
+            color: color,
+            activeIconColor: activeIconColor,
+            badgeColor: badgeColor,
+            textColor: textColor);
 
   @override
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
     var style = ofStyle(context);
     var margin = style.activeIconMargin;
+    var textStyle = style.textStyle(textColor!, item.fontFamily!);
     if (active) {
       final item = items[index];
       return TransitionContainer.scale(
         data: index,
         curve: curve,
-        child: Container(
-          // necessary otherwise the badge will not large enough
-          width: style.layoutSize,
-          height: style.layoutSize,
-          margin: EdgeInsets.all(margin),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: active ? activeColor : color,
-          ),
-          child: BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            size: style.activeIconSize,
-            color: item.blend ? backgroundColor : null,
-          ),
+        child: Column(
+          children: [
+            Container(
+              // necessary otherwise the badge will not large enough
+              width: style.layoutSize,
+              height: style.layoutSize,
+              margin: EdgeInsets.all(margin),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: active ? activeColor : color,
+              ),
+              child: BlendImageIcon(
+                active ? item.activeIcon ?? item.icon : item.icon,
+                size: style.activeIconSize,
+                color: item.blend ? activeIconColor : activeIconColor,
+              ),
+            ),
+            Text(item.title!, style: textStyle)
+          ],
         ),
       );
     }
-    var textStyle = style.textStyle(color, item.fontFamily);
-    var noLabel = style.hideEmptyLabel && hasNoText(item);
     var children = <Widget>[
-      BlendImageIcon(
-        active ? item.activeIcon ?? item.icon : item.icon,
-        size: style.iconSize,
-        color: item.blend ? color : null,
-      ),
+      item.isContainBadge!
+          ? item.badgeCount != 0
+              ? Badge(
+                  position: BadgePosition.topEnd(top: -5, end: -7),
+                  padding: item.badgeCount! > 9
+                      ? EdgeInsets.all(3)
+                      : EdgeInsets.all(5),
+                  badgeColor: badgeColor!,
+                  badgeContent: Text(
+                    '${item.badgeCount}',
+                    style: TextStyle(color: activeColor, fontSize: 11),
+                  ),
+                  child: BlendImageIcon(
+                    active ? item.activeIcon ?? item.icon : item.icon,
+                    color: item.blend ? activeColor : activeColor,
+                  ),
+                )
+              : Badge(
+                  position: BadgePosition.topEnd(top: -0.4, end: -0.1),
+                  badgeColor: badgeColor!,
+                  child: BlendImageIcon(
+                    active ? item.activeIcon ?? item.icon : item.icon,
+                    color: item.blend ? activeColor : activeColor,
+                  ),
+                )
+          : BlendImageIcon(
+              active ? item.activeIcon ?? item.icon : item.icon,
+              color: item.blend ? activeColor : activeColor,
+            )
     ];
-    if (!noLabel) {
-      children.add(Text(item.title ?? '', style: textStyle));
-    }
+
     return Container(
+      color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

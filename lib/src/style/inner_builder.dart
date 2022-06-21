@@ -37,9 +37,20 @@ abstract class InnerBuilder extends DelegateBuilder {
   /// Style hook to override the internal tab style
   StyleHook? _style;
 
+  Color? activeIconColor;
+
+  Color? textColor;
+
+  Color? badgeColor;
+
   /// Create style builder.
   InnerBuilder(
-      {required this.items, required this.activeColor, required this.color});
+      {required this.items,
+      required this.activeColor,
+      required this.color,
+      this.activeIconColor,
+      this.textColor,
+      this.badgeColor});
 
   /// Get style config
   StyleHook ofStyle(BuildContext context) {
