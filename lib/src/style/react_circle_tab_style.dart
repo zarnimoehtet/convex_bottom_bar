@@ -55,7 +55,7 @@ class ReactCircleTabStyle extends InnerBuilder {
     var item = items[index];
     var style = ofStyle(context);
     var margin = style.activeIconMargin;
-    var textStyle = style.textStyle(textColor!, item.fontFamily!);
+    var textStyle = style.textStyle(textColor!, item.fontFamily);
     if (active) {
       final item = items[index];
       return TransitionContainer.scale(
