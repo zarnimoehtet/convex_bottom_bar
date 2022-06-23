@@ -68,6 +68,7 @@ class ReactCircleTabStyle extends InnerBuilder {
               width: style.layoutSize,
               height: style.layoutSize,
               margin: EdgeInsets.all(margin),
+              padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: active ? activeColor : color,
