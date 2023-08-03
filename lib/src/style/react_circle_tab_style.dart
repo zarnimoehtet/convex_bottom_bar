@@ -88,7 +88,7 @@ class ReactCircleTabStyle extends InnerBuilder {
       item.isContainBadge!
           ? item.badgeCount != 0
               ? b.Badge(
-                  position: BadgePosition.topEnd(top: -5, end: -7),
+                  position: b.BadgePosition.topEnd(top: -5, end: -7),
                   padding: item.badgeCount! > 9
                       ? EdgeInsets.all(3)
                       : EdgeInsets.all(5),
@@ -103,7 +103,7 @@ class ReactCircleTabStyle extends InnerBuilder {
                   ),
                 )
               : b.Badge(
-                  position: BadgePosition.topEnd(top: -0.4, end: -0.1),
+                  position: b.BadgePosition.topEnd(top: -0.4, end: -0.1),
                   badgeColor: badgeColor!,
                   child: BlendImageIcon(
                     active ? item.activeIcon ?? item.icon : item.icon,
