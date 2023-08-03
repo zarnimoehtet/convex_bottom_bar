@@ -22,7 +22,7 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as b;
 
 /// Convex shape is moved after selection.
 class ReactCircleTabStyle extends InnerBuilder {
@@ -87,7 +87,7 @@ class ReactCircleTabStyle extends InnerBuilder {
     var children = <Widget>[
       item.isContainBadge!
           ? item.badgeCount != 0
-              ? Badge(
+              ? b.Badge(
                   position: BadgePosition.topEnd(top: -5, end: -7),
                   padding: item.badgeCount! > 9
                       ? EdgeInsets.all(3)
@@ -102,7 +102,7 @@ class ReactCircleTabStyle extends InnerBuilder {
                     color: item.blend ? activeColor : activeColor,
                   ),
                 )
-              : Badge(
+              : b.Badge(
                   position: BadgePosition.topEnd(top: -0.4, end: -0.1),
                   badgeColor: badgeColor!,
                   child: BlendImageIcon(
